@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { isAuthenticated, isOwner } = require("../middleware/jwt.middleware");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+const isOwner = require("../middleware/isOwner.middleware");
 
 const Habit = require("../models/Habit.model")
 
@@ -43,7 +44,7 @@ router.get("/habit/:habitId", isAuthenticated, (req, res) => {
 })
 
 // UPDATE (PUT) habit
-router.put("/habit/:habitId", isAuthenticated, isOwner, (req, res) => {
+router.put("/habit/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
     const {habitId} = req.params
 
     Habit.findByIdAndUpdate(habitId, req.body, {new: true})
@@ -56,7 +57,7 @@ router.put("/habit/:habitId", isAuthenticated, isOwner, (req, res) => {
 })
 
 // DELETE /api/habit/:habitId
-router.delete("/habit/:habitId", isAuthenticated, isOwner, (req, res) => {
+router.delete("/habit/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
     const {habitId} = req.params
 
     Habit.findByIdAndDelete(habitId)
