@@ -11,7 +11,7 @@ const habitSchema = new Schema(
         },
         color: {
             type: String,
-            default: "Choose a color!"
+            default: "blue-100"
         },
         frequency: {
             type: String,

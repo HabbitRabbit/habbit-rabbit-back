@@ -10,6 +10,10 @@ const goalSchema = new Schema(
     period: {type: String, required: true, enum: ["daily", "weekly", "monthly"]},
     startDate: {type: Date, default: Date.now},
     endDate: {type: Date},
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
   },
 );
 
