@@ -12,7 +12,8 @@ const goalSchema = new Schema(
     endDate: {type: Date},
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true
     },
   },
 );

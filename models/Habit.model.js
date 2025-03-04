@@ -20,7 +20,8 @@ const habitSchema = new Schema(
         },
         createdBy: {
             type: Schema.Types.ObjectId,
-            ref: "User"
+            ref: "User",
+            required: true
         },
         reminder: {
             type: Date,
