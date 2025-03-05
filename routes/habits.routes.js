@@ -6,8 +6,8 @@ const isOwner = require("../middleware/isOwner.middleware");
 
 const Habit = require("../models/Habit.model")
 
-// POST new habit /api/habit
-router.post("/habit", isAuthenticated, (req, res) => {
+// POST new habit /api/habits
+router.post("/habits", isAuthenticated, (req, res) => {
     Habit.create(req.body)
     .then((newHabit) => {
         res.status(201).json(newHabit)
@@ -18,7 +18,7 @@ router.post("/habit", isAuthenticated, (req, res) => {
 })
 
 // GET all habits /api/habit
-router.get("/habit", isAuthenticated, (req, res) => {
+router.get("/habits", isAuthenticated, (req, res) => {
     Habit.find()
     //.populate("goal") --- don't know if it's necessary
     .then((habits) => {
@@ -29,8 +29,8 @@ router.get("/habit", isAuthenticated, (req, res) => {
     })
 })
 
-// GET specific habit 
-router.get("/habit/:habitId", isAuthenticated, (req, res) => {
+// GET specific habits 
+router.get("/habits/:habitId", isAuthenticated, (req, res) => {
     const {habitId} = req.params
 
     Habit.findById(habitId)
@@ -43,8 +43,8 @@ router.get("/habit/:habitId", isAuthenticated, (req, res) => {
     })
 })
 
-// UPDATE (PUT) habit
-router.put("/habit/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
+// UPDATE (PUT) habits
+router.put("/habits/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
     const {habitId} = req.params
 
     Habit.findByIdAndUpdate(habitId, req.body, {new: true})
@@ -56,8 +56,8 @@ router.put("/habit/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
     })
 })
 
-// DELETE /api/habit/:habitId
-router.delete("/habit/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
+// DELETE /api/habits/:habitId
+router.delete("/habits/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
     const {habitId} = req.params
 
     Habit.findByIdAndDelete(habitId)

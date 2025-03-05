@@ -5,7 +5,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const {isOwner} = require("../middleware/isOwner.middleware");
 
 // POST new goal
-router.post("/goal", isAuthenticated, (req, res) => {
+router.post("/goals", isAuthenticated, (req, res) => {
     Goal.create(req.body)
     .then((newGoal) => res.status(201).json(newGoal))
     .catch(e => res.status(500).json({message: "Error"}))
@@ -13,7 +13,7 @@ router.post("/goal", isAuthenticated, (req, res) => {
 
 //UPDATE (PUT) goal
 
-router.put("/goal/:id", isAuthenticated, isOwner("goal"), (req, res) => {
+router.put("/goals/:id", isAuthenticated, isOwner("goal"), (req, res) => {
     const {id} = req.params
     Goal.findByIdAndUpdate(id, req.body, {new: true})
     .then((updatedGoal) => res.status(200).json(updatedGoal))
@@ -21,13 +21,13 @@ router.put("/goal/:id", isAuthenticated, isOwner("goal"), (req, res) => {
 })
 
 //GET all goals and then get specific goal
-router.get("/goal", isAuthenticated, isOwner("goal"), (req, res) => {
+router.get("/goals", isAuthenticated, isOwner("goal"), (req, res) => {
     Goal.find()
     .then((goals) => res.status(200).json(goals))
     .catch(e => res.status(500).json({message: "Error"}))
 })
 
-router.get("/goal/:id", isAuthenticated, isOwner("goal"), (req, res) => {
+router.get("/goals/:id", isAuthenticated, isOwner("goal"), (req, res) => {
     const {id} = req.params
     Goal.findById(id)
     .then((goal) => res.status(200).json(goal))
@@ -36,7 +36,7 @@ router.get("/goal/:id", isAuthenticated, isOwner("goal"), (req, res) => {
 
 //DELETE goal
 
-router.delete("/goal/:id", isAuthenticated, isOwner("goal"), (req, res) => {
+router.delete("/goals/:id", isAuthenticated, isOwner("goal"), (req, res) => {
     const {id} = req.params
     Goal.findByIdAndDelete(id)
     .then(res.status(204).end())
