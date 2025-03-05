@@ -21,10 +21,10 @@ app.use("/api", indexRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
-const habitRoutes = require('.routes/habits.routes');
+const habitRoutes = require('./routes/habits.routes');
 app.use('/api', habitRoutes);
 
-const goalRoutes = require('.routes/goals.routes');
+const goalRoutes = require('./routes/goals.routes');
 app.use('/api', goalRoutes);
 
 

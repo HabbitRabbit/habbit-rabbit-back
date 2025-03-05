@@ -44,7 +44,7 @@ router.get("/habits/:habitId", isAuthenticated, (req, res) => {
 })
 
 // UPDATE (PUT) habits
-router.put("/habits/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
+router.put("/habits/:habitId", isAuthenticated, isOwner, (req, res) => {
     const {habitId} = req.params
 
     Habit.findByIdAndUpdate(habitId, req.body, {new: true})
@@ -57,7 +57,7 @@ router.put("/habits/:habitId", isAuthenticated, isOwner("habit"), (req, res) => 
 })
 
 // DELETE /api/habits/:habitId
-router.delete("/habits/:habitId", isAuthenticated, isOwner("habit"), (req, res) => {
+router.delete("/habits/:habitId", isAuthenticated, isOwner, (req, res) => {
     const {habitId} = req.params
 
     Habit.findByIdAndDelete(habitId)
