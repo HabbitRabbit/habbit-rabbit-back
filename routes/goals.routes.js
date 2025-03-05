@@ -20,13 +20,13 @@ router.patch("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     .catch(e => res.status(500).json({message: "Error"}))
 })
 
-/*GET all goals (commented out for performance reasons)
-router.get("/goals", isAuthenticated, isOwner, (req, res) => {
-    Goal.find()
+//GET all goals (commented out for performance reasons)
+router.get("/goals", isAuthenticated, (req, res) => {
+    Goal.find({createdBy: req.payload._id})
     .then((goals) => res.status(200).json(goals))
     .catch(e => res.status(500).json({message: "Error"}))
 })
-*/
+
 router.get("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     const {goalId} = req.params
     console.log("works!")
