@@ -15,6 +15,7 @@ const goalSchema = new Schema(
         ref: "User",
         required: true
     },
+    
   },
 );
 

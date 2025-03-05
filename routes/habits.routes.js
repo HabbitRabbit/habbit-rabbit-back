@@ -43,16 +43,18 @@ router.get("/habits/:habitId", isAuthenticated, (req, res) => {
     })
 })
 
-// UPDATE (PUT) habits
-router.put("/habits/:habitId", isAuthenticated, isOwner, (req, res) => {
+// UPDATE (PATCH) habits
+router.patch("/habits/:habitId", isAuthenticated, isOwner, (req, res) => {
     const {habitId} = req.params
+
+    console.log("habit id:",habitId)
 
     Habit.findByIdAndUpdate(habitId, req.body, {new: true})
     .then((updatedHabit) => {
         res.status(200).json(updatedHabit)
     })
     .catch(error => {
-        res.status(500).json({message: "Error updating the habit"})
+        res.status(500).json({message: "Error updating the habbit"})
     })
 })
 

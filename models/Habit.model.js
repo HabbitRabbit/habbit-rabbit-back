@@ -27,6 +27,7 @@ const habitSchema = new Schema(
             type: Date,
             default: Date.now
         }
+       
     }
 );
 

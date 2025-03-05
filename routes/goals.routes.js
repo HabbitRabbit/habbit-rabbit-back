@@ -11,9 +11,9 @@ router.post("/goals", isAuthenticated, (req, res) => {
     .catch(e => res.status(500).json({message: "Error"}))
 })
 
-//UPDATE (PUT) goal
+//UPDATE (PATCH) goal
 
-router.put("/goals/:id", isAuthenticated, isOwner, (req, res) => {
+router.patch("/goals/:id", isAuthenticated, isOwner, (req, res) => {
     const {id} = req.params
     Goal.findByIdAndUpdate(id, req.body, {new: true})
     .then((updatedGoal) => res.status(200).json(updatedGoal))
