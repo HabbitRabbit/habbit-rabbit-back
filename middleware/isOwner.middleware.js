@@ -38,11 +38,6 @@ const isOwner = async (req, res, next) => {
         return res.status(403).json({ message: "You do not have permission to access this resource" });
     }
 
-        
-        
-
-       
-
        
         console.log("you can update the collection!")
         // If they match, proceed with the request

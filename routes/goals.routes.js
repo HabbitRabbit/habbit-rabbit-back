@@ -13,32 +13,33 @@ router.post("/goals", isAuthenticated, (req, res) => {
 
 //UPDATE (PATCH) goal
 
-router.patch("/goals/:id", isAuthenticated, isOwner, (req, res) => {
-    const {id} = req.params
-    Goal.findByIdAndUpdate(id, req.body, {new: true})
+router.patch("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
+    const {goalId} = req.params
+    Goal.findByIdAndUpdate(goalId, req.body, {new: true})
     .then((updatedGoal) => res.status(200).json(updatedGoal))
     .catch(e => res.status(500).json({message: "Error"}))
 })
 
-//GET all goals and then get specific goal
+/*GET all goals (commented out for performance reasons)
 router.get("/goals", isAuthenticated, isOwner, (req, res) => {
     Goal.find()
     .then((goals) => res.status(200).json(goals))
     .catch(e => res.status(500).json({message: "Error"}))
 })
-
-router.get("/goals/:id", isAuthenticated, isOwner, (req, res) => {
-    const {id} = req.params
-    Goal.findById(id)
+*/
+router.get("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
+    const {goalId} = req.params
+    console.log("works!")
+    Goal.findById(goalId)
     .then((goal) => res.status(200).json(goal))
     .catch(e => res.status(500).json({message: "Error"}))
 })
 
 //DELETE goal
 
-router.delete("/goals/:id", isAuthenticated, isOwner, (req, res) => {
-    const {id} = req.params
-    Goal.findByIdAndDelete(id)
+router.delete("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
+    const {goalId} = req.params
+    Goal.findByIdAndDelete(goalId)
     .then(res.status(204).end())
     .catch(e => res.status(500).json({message: "Error"}))
 })

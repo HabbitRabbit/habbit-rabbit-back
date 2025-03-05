@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const goalSchema = new Schema(
   {
+    name: {type: String, required: true},
     habits: [{
         habit: {type: Schema.Types.ObjectId, ref: "Habit"},
         achievedCount: {type: Number, default: 0}
@@ -15,7 +16,7 @@ const goalSchema = new Schema(
         ref: "User",
         required: true
     },
-    
+
   },
 );
 
