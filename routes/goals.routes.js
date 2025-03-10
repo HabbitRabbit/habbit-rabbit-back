@@ -46,4 +46,13 @@ router.delete("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     .catch(e => res.status(500).json({message: "Error"}))
 })
 
+// PATCH to mark goal completed
+router.patch("/goals/:goalId/complete", isAuthenticated, isOwner, (req, res) => {
+    const { goalId } = req.params;
+  
+    Goal.findByIdAndUpdate(goalId, { status: "completed" }, { new: true })
+      .then((goal) => res.status(200).json(goal))
+      .catch((e) => res.status(500).json({ message: "Error completing goal" }));
+  });
+
 module.exports = router;

@@ -16,7 +16,7 @@ const goalSchema = new Schema(
         ref: "User",
         required: true
     },
-
+    status: { type: String, enum: ["active", "completed"], default: "active" }
   },
 );
 
