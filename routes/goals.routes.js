@@ -23,6 +23,7 @@ router.patch("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
 //GET all goals (commented out for performance reasons)
 router.get("/goals", isAuthenticated, (req, res) => {
     Goal.find({createdBy: req.payload._id})
+    .populate('habits.habit')
     .then((goals) => res.status(200).json(goals))
     .catch(e => res.status(500).json({message: "Error"}))
 })
@@ -31,6 +32,7 @@ router.get("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     const {goalId} = req.params
     console.log("works!")
     Goal.findById(goalId)
+    .populate('habits.habit')
     .then((goal) => res.status(200).json(goal))
     .catch(e => res.status(500).json({message: "Error"}))
 })
