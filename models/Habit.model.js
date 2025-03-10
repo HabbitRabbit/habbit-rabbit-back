@@ -27,8 +27,10 @@ const habitSchema = new Schema(
         reminder: {
             type: Date,
             default: Date.now
-        }
-       
+        },
+        check: { 
+            type: Boolean, 
+            default: false }
     }
 );
 

@@ -67,4 +67,37 @@ router.delete("/habits/:habitId", isAuthenticated, isOwner, (req, res) => {
     .catch(error => res.status(500).json({message: "Error deleting the habit"}))
 })
 
+/*PATCH to update habit: completed
+router.patch("/habits/:habitId/complete", isAuthenticated, isOwner, (req, res) => {
+    const { habitId } = req.params;
+    const { date } = req.body; // Date when the habit was completed
+  
+    Habit.findById(habitId)
+      .then((habit) => {
+        if (!habit.completedDates) {
+          habit.completedDates = [];
+        }
+        if (!habit.completedDates.includes(date)) {
+          habit.completedDates.push(date);
+          habit.achievedCount += 1;
+        }
+        return habit.save();
+      })
+      .then((updatedHabit) => res.status(200).json(updatedHabit))
+      .catch((e) => res.status(500).json({ message: "Error updating habit" }));
+  }); 
+  */
+
+  // PATCH update check status
+  router.patch("/habits/:habitId/check", isAuthenticated, isOwner, (req, res) => {
+    const { habitId } = req.params;
+    const { check } = req.body; // Extract the boolean value from the request body
+  
+    Habit.findByIdAndUpdate(habitId, { check: check }, { new: true })
+      .then((habit) => {
+        res.status(200).json(habit);
+      })
+      .catch(e => res.status(500).json({ message: "Error updating the check" }));
+  });
+
 module.exports = router;
