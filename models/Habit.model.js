@@ -11,6 +11,7 @@ const habitSchema = new Schema(
         },
         color: {
             type: String,
+            enum: ["blue-100", "red-100", "green-100", "pink-100", "yellow-100"],
             default: "blue-100"
         },
         frequency: {
