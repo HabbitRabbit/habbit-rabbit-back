@@ -7,8 +7,6 @@ const goalSchema = new Schema(
         habit: {type: Schema.Types.ObjectId, ref: "Habit", required: true },
         achievedCount: {type: Number, default: 0}
     }],
-    targetFrequency: {type: Number, default: 0},
-    period: {type: String, required: true, enum: ["daily", "weekly", "monthly"]},
     startDate: {type: Date, default: Date.now},
     endDate: {type: Date},
     createdBy: {
@@ -18,6 +16,9 @@ const goalSchema = new Schema(
     },
     status: { type: String, enum: ["active", "completed"], default: "active" }
   },
+  {
+    timestamps: true
+  }
 );
 
 const Goal = model("Goal", goalSchema);
