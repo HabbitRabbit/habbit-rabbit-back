@@ -4,7 +4,7 @@ const goalSchema = new Schema(
   {
     name: {type: String, required: true},
     habits: [{
-        habit: {type: Schema.Types.ObjectId, ref: "Habit"},
+        habit: {type: Schema.Types.ObjectId, ref: "Habit", required: true },
         achievedCount: {type: Number, default: 0}
     }],
     targetFrequency: {type: Number, default: 0},
