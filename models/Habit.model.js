@@ -16,7 +16,7 @@ const habitSchema = new Schema(
         },
         frequency: {
             type: String,
-            enum: ["daily", "every two days", "every three days"],
+            enum: ["daily", "two-days", "three-days"],
             required: true
         },
         createdBy: {
