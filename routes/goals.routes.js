@@ -16,6 +16,7 @@ router.post("/goals", isAuthenticated, (req, res) => {
 router.patch("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     const {goalId} = req.params
     Goal.findByIdAndUpdate(goalId, req.body, {new: true})
+    .populate('habits.habit')
     .then((updatedGoal) => res.status(200).json(updatedGoal))
     .catch(e => res.status(500).json({message: "Error"}))
 })
