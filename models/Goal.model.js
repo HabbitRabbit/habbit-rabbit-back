@@ -21,6 +21,34 @@ const goalSchema = new Schema(
   }
 );
 
+// Add the method here
+goalSchema.methods.calculateRequiredAchievedCount = function () {
+  const now = new Date();
+  const totalDays = Math.ceil((this.endDate - this.startDate) / (1000 * 60 * 60 * 24));
+  const remainingDays = Math.ceil((this.endDate - now) / (1000 * 60 * 60 * 24));
+
+  let frequencyDays;
+  switch (this.habits[0].habit.frequency) {
+    case "daily":
+      frequencyDays = 1;
+      break;
+    case "two-days":
+      frequencyDays = 2;
+      break;
+    case "three-days":
+      frequencyDays = 3;
+      break;
+    default:
+      frequencyDays = 1;
+  }
+
+  const requiredAchievedCount = Math.floor(totalDays / frequencyDays);
+  const remainingAchievedCount = Math.floor(remainingDays / frequencyDays);
+
+  return { requiredAchievedCount, remainingAchievedCount };
+};
+
+
 const Goal = model("Goal", goalSchema);
 
 module.exports = Goal;

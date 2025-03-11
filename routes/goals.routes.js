@@ -25,9 +25,20 @@ router.patch("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
 router.get("/goals", isAuthenticated, (req, res) => {
     Goal.find({createdBy: req.payload._id})
     .populate('habits.habit')
-    .then((goals) => res.status(200).json(goals))
-    .catch(e => res.status(500).json({message: "Error"}))
-})
+    .then((goals) => {
+        const goalsWithCalculatedFields = goals.map(goal => {
+          const { requiredAchievedCount, remainingAchievedCount } = goal.calculateRequiredAchievedCount();
+          return {
+            ...goal.toObject(),  // Convert Mongoose document to plain object
+            requiredAchievedCount,
+            remainingAchievedCount
+          };
+        });
+  
+        res.status(200).json(goalsWithCalculatedFields);
+      })
+      .catch(e => res.status(500).json({ message: "Error fetching goals", error: e.message }));
+  });
 
 router.get("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     const {goalId} = req.params

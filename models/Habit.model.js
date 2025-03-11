@@ -34,6 +34,31 @@ const habitSchema = new Schema(
     }
 );
 
+// Add the method here
+habitSchema.methods.shouldBeUnchecked = function (lastCheckedDate) {
+    const now = new Date();
+  
+    let frequencyDays;
+    switch (this.frequency) {
+      case "daily":
+        frequencyDays = 1;
+        break;
+      case "two-days":
+        frequencyDays = 2;
+        break;
+      case "three-days":
+        frequencyDays = 3;
+        break;
+      default:
+        frequencyDays = 1;
+    }
+  
+    const nextCheckDate = new Date(lastCheckedDate);
+    nextCheckDate.setDate(nextCheckDate.getDate() + frequencyDays);
+  
+    return now >= nextCheckDate;
+  };
+
 const Habit = model("Habit", habitSchema);
 
 module.exports = Habit;
