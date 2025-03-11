@@ -21,6 +21,23 @@ router.patch("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     .catch(e => res.status(500).json({message: "Error"}))
 })
 
+//PATCH adds one to habit achieved count
+
+router.patch("/goals/checkHabit/:goalId", async (req, res) => {
+  try {
+    const {goalId} = req.params
+    const {habitId} = req.body
+    console.log(req.body)
+    const goal = await Goal.findById(goalId)
+    goal.habits.map(habit => habit.habit === habitId && habit.achievedCount + 1)
+    goal.save()
+    return res.status(200).json({msg: "should be good"})
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json(error)
+  }
+})
+
 //GET all goals (commented out for performance reasons)
 router.get("/goals", isAuthenticated, (req, res) => {
     Goal.find({createdBy: req.payload._id})
