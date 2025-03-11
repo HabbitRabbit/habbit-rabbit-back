@@ -34,7 +34,7 @@ router.get("/habits/:habitId", isAuthenticated, (req, res) => {
     const {habitId} = req.params
 
     Habit.findById(habitId)
-    //.populate("goal") --- don't know if it's necessary
+    .populate("goal")
     .then((habits) => {
         res.status(200).json(habits)
     })
