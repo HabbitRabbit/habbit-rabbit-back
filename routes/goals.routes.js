@@ -30,7 +30,6 @@ router.get("/goals", isAuthenticated, (req, res) => {
 
 router.get("/goals/:goalId", isAuthenticated, isOwner, (req, res) => {
     const {goalId} = req.params
-    console.log("works!")
     Goal.findById(goalId)
     .populate('habits.habit')
     .then((goal) => res.status(200).json(goal))

@@ -19,7 +19,7 @@ router.post("/habits", isAuthenticated, (req, res) => {
 
 // GET all habits /api/habit
 router.get("/habits", isAuthenticated, (req, res) => {
-    Habit.find()
+    Habit.find({createdBy: req.payload._id})
     //.populate("goal") --- don't know if it's necessary
     .then((habits) => {
         res.status(200).json(habits)
