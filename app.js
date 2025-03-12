@@ -27,6 +27,9 @@ app.use('/api', habitRoutes);
 const goalRoutes = require('./routes/goals.routes');
 app.use('/api', goalRoutes);
 
+const progressRoutes = require('./routes/progress.routes');
+app.use('/api', progressRoutes);
+
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
