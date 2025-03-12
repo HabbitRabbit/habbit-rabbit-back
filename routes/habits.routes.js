@@ -4,7 +4,8 @@ const router = express.Router();
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const isOwner = require("../middleware/isOwner.middleware");
 
-const Habit = require("../models/Habit.model")
+const Habit = require("../models/Habit.model");
+const e = require("cors");
 
 // POST new habit /api/habits
 router.post("/habits", isAuthenticated, (req, res) => {
@@ -30,16 +31,16 @@ router.get("/habits", isAuthenticated, (req, res) => {
 })
 
 // GET specific habits 
-router.get("/habits/:habitId", isAuthenticated, (req, res) => {
+router.get("/habits/:habitId", isAuthenticated, isOwner, (req, res) => {
     const {habitId} = req.params
 
     Habit.findById(habitId)
-    .populate("goal")
+    //.populate("goal")
     .then((habits) => {
         res.status(200).json(habits)
     })
-    .catch(error => {
-        res.status(500).json({message: "Error getting the habit"})
+    .catch(e => {
+        res.status(500).json({message: "Error getting the habit", e})
     })
 })
 
