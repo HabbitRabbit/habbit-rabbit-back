@@ -37,7 +37,7 @@ router.patch("/goals/checkHabit/:goalId", async (req, res) => {
   }
 });
 
-//GET all goals (commented out for performance reasons)
+//GET all goals
 router.get("/goals", isAuthenticated, (req, res) => {
   Goal.find({ createdBy: req.payload._id })
     .populate("habits.habit")
