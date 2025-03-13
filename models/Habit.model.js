@@ -9,11 +9,6 @@ const habitSchema = new Schema(
         description: {
             type: String
         },
-        color: {
-            type: String,
-            enum: ["#0000FF", "#FF0000", "#008000", "#FFC0CB", "#FFFF00"],
-            default: "blue-100"
-        },
         frequency: {
             type: String,
             enum: ["daily", "two-days", "three-days"],
